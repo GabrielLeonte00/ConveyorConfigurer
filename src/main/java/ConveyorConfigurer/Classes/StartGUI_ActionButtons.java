@@ -6,14 +6,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import ConveyorConfigurer.Classes.GUI.NewProjectGUI;
+import ConveyorConfigurer.Classes.GUI.StartGUI;
 
 public class StartGUI_ActionButtons{
 
-	private JFrame frame;
 	private JButton btnNew, btnAbout, btnExit;
 	
-	public StartGUI_ActionButtons(JFrame frame, JButton btnNew, JButton btnAbout, JButton btnExit) {
-		this.frame = frame;
+	public StartGUI_ActionButtons(JButton btnNew, JButton btnAbout, JButton btnExit) {
 		this.btnNew = btnNew;
 		this.btnAbout = btnAbout;
 		this.btnExit = btnExit;
@@ -50,9 +49,10 @@ public class StartGUI_ActionButtons{
 	 */
 	private void addAction_btnNew() {
 		btnNew.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("static-access")
 			@Override
 			public void mousePressed(MouseEvent e) {
-				frame.setVisible(false);
+				StartGUI.getFrame().setVisible(false);
 				NewProjectGUI createWindow = new NewProjectGUI();
 				createWindow.getFrame().setVisible(true);
 			}

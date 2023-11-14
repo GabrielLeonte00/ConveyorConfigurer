@@ -11,7 +11,7 @@ public class StartGUI extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JFrame frame;
+	private static JFrame frame;
 	private JButton btnNew, btnAbout, btnExit;
 
 	/**
@@ -19,14 +19,14 @@ public class StartGUI extends JFrame {
 	 */
 	public StartGUI() {
 		initialize();
-		new StartGUI_ActionButtons(frame, btnNew, btnAbout, btnExit);
+		new StartGUI_ActionButtons(btnNew, btnAbout, btnExit);
 	}
 	
 	/**
 	 * Getter for the main GUI frame
 	 * @return
 	 */
-	public JFrame getFrame() {
+	public static JFrame getFrame() {
 		return frame;
 	}
 

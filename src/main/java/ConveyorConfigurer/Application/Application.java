@@ -11,6 +11,7 @@ public class Application {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@SuppressWarnings("static-access")
 			public void run() {
 				try {
 					StartGUI window = new StartGUI();

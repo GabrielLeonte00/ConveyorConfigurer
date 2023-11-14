@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import ConveyorConfigurer.Classes.GUI.NewProjectGUI_ActionButtons.ComboBoxActionListeners;
+import ConveyorConfigurer.Classes.GUI.NewProjectGUI_ActionButtons.ExportButton;
 
 public class NewProjectGUI extends JFrame {
 
@@ -19,19 +20,19 @@ public class NewProjectGUI extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private JFrame frame;
+	private static JFrame frame;
 	private static JPanel drawingPanel;
 	private JPanel previewPanel;
-	private JTextField textFieldHeight;
-	private JTextField textFieldSpeed;
-	private JTextField textFieldLengthNow;
-	private JTextField textFieldWidthNow;
-	private int drawingWidth, drawingLength;
-	private JComboBox<String> comboBoxType, comboBoxWidth, comboBoxLenght, comboBoxPitch, comboBoxSide, comboBoxNo_MDR;
 
 	private static int type, width, length;
 	private static String pitch;
 	private static int side, no_MDR;
+
+	private JButton btnExport, btnAddComponent, btnExtLength, btnExtWidth;
+	private int drawingWidth, drawingLength;
+	private JTextField textFieldHeight, textFieldSpeed, textFieldLengthNow, textFieldWidthNow;
+	
+	private JComboBox<String> comboBoxType, comboBoxWidth, comboBoxLenght, comboBoxPitch, comboBoxSide, comboBoxNo_MDR;
 
 	/**
 	 * Constructor for the new project GUI
@@ -41,15 +42,23 @@ public class NewProjectGUI extends JFrame {
 		initializeValues();
 		new ComboBoxActionListeners(comboBoxType, comboBoxWidth, comboBoxLenght, comboBoxPitch, comboBoxSide,
 				comboBoxNo_MDR);
+		new ExportButton(btnExport);
 	}
 
 	/**
 	 * Getter for the main GUI frame
-	 * 
 	 * @return
 	 */
-	public JFrame getFrame() {
+	public static JFrame getFrame() {
 		return frame;
+	}
+	
+	/**
+	 * Getter for the panel in which we create the schema
+	 * @return
+	 */
+	public static JPanel getDrawingPanel() {
+		return drawingPanel;
 	}
 
 	/**
@@ -150,19 +159,19 @@ public class NewProjectGUI extends JFrame {
 		lblHeight.setBounds(10, 626, 135, 22);
 		panel.add(lblHeight);
 
-		JButton btnExport = new JButton("Export");
+		btnExport = new JButton("Export");
 		btnExport.setBounds(10, 0, 290, 40);
 		panel.add(btnExport);
 
-		JButton btnAddComponent = new JButton("Add component");
+		btnAddComponent = new JButton("Add component");
 		btnAddComponent.setBounds(10, 657, 290, 40);
 		panel.add(btnAddComponent);
 
-		JButton btnExtLength = new JButton("Extend Length");
+		btnExtLength = new JButton("Extend Length");
 		btnExtLength.setBounds(10, 51, 135, 40);
 		panel.add(btnExtLength);
 
-		JButton btnExtWidth = new JButton("Extend Width");
+		btnExtWidth = new JButton("Extend Width");
 		btnExtWidth.setBounds(165, 51, 135, 40);
 		panel.add(btnExtWidth);
 
@@ -200,7 +209,7 @@ public class NewProjectGUI extends JFrame {
 	}
 
 	/**
-	 * Initialize the values for the components 
+	 * Initialize the values for the components
 	 */
 	private void initializeValues() {
 		type = comboBoxType.getSelectedIndex();
@@ -208,11 +217,12 @@ public class NewProjectGUI extends JFrame {
 		length = Integer.valueOf((String) comboBoxLenght.getSelectedItem());
 		pitch = (String) comboBoxPitch.getSelectedItem();
 		side = comboBoxSide.getSelectedIndex();
-		no_MDR = Integer.valueOf((String) comboBoxNo_MDR.getSelectedItem());	
+		no_MDR = Integer.valueOf((String) comboBoxNo_MDR.getSelectedItem());
 	}
 
 	/**
 	 * Setter for the constant type
+	 * 
 	 * @param newValue New value for type
 	 */
 	public static void setType(int newValue) {
@@ -222,6 +232,7 @@ public class NewProjectGUI extends JFrame {
 
 	/**
 	 * Setter for the constant width
+	 * 
 	 * @param newValue New value for width
 	 */
 	public static void setWidth(int newValue) {
@@ -231,6 +242,7 @@ public class NewProjectGUI extends JFrame {
 
 	/**
 	 * Setter for the constant length
+	 * 
 	 * @param newValue New value for length
 	 */
 	public static void setLength(int newValue) {
@@ -240,6 +252,7 @@ public class NewProjectGUI extends JFrame {
 
 	/**
 	 * Setter for the constant pitch
+	 * 
 	 * @param newString New value for pitch
 	 */
 	public static void setPitch(String newString) {
@@ -249,6 +262,7 @@ public class NewProjectGUI extends JFrame {
 
 	/**
 	 * Setter for the constant no_MDR
+	 * 
 	 * @param newValue New value for no_MDR
 	 */
 	public static void setNo_MDR(int newValue) {
@@ -258,6 +272,7 @@ public class NewProjectGUI extends JFrame {
 
 	/**
 	 * Setter for the constant side
+	 * 
 	 * @param newValue New value for side
 	 */
 	public static void setSide(int newValue) {
