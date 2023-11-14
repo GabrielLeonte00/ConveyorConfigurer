@@ -1,7 +1,9 @@
-package ConveyorConfigurer.Classes;
+package ConveyorConfigurer.Classes.GUI;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+
+import ConveyorConfigurer.Classes.StartGUI_ActionButtons;
 
 public class StartGUI extends JFrame {
 
@@ -17,6 +19,15 @@ public class StartGUI extends JFrame {
 	 */
 	public StartGUI() {
 		initialize();
+		new StartGUI_ActionButtons(frame, btnNew, btnAbout, btnExit);
+	}
+	
+	/**
+	 * Getter for the main GUI frame
+	 * @return
+	 */
+	public JFrame getFrame() {
+		return frame;
 	}
 
 	/**
@@ -47,10 +58,6 @@ public class StartGUI extends JFrame {
 		btnExit.setFocusPainted(false);
 		frame.getContentPane().add(btnExit);
 
-	}
-
-	public JFrame getFrame() {
-		return frame;
 	}
 
 }

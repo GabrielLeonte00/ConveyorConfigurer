@@ -2,7 +2,7 @@ package ConveyorConfigurer.Application;
 
 import java.awt.EventQueue;
 
-import ConveyorConfigurer.Classes.StartGUI;
+import ConveyorConfigurer.Classes.GUI.StartGUI;
 
 public class Application {
 
