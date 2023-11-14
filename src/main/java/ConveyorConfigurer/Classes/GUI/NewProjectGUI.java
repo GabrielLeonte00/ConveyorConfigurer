@@ -13,9 +13,10 @@ import javax.swing.text.AbstractDocument;
 
 import ConveyorConfigurer.Classes.NumericDocumentFilter;
 import ConveyorConfigurer.Classes.NumericDocumentFilter_maxNumber;
-import ConveyorConfigurer.Classes.GUI.NewProjectGUI_ActionButtons.ComboBoxActionListeners;
-import ConveyorConfigurer.Classes.GUI.NewProjectGUI_ActionButtons.ExportButton;
-import ConveyorConfigurer.Classes.GUI.NewProjectGUI_ActionButtons.ExtendButtons;
+import ConveyorConfigurer.Classes.NewProjectGUI.AddComponentButton;
+import ConveyorConfigurer.Classes.NewProjectGUI.ComboBoxActionListeners;
+import ConveyorConfigurer.Classes.NewProjectGUI.ExportButton;
+import ConveyorConfigurer.Classes.NewProjectGUI.ExtendButtons;
 
 public class NewProjectGUI extends JFrame {
 
@@ -34,7 +35,9 @@ public class NewProjectGUI extends JFrame {
 
 	private JButton btnExport, btnAddComponent, btnExtLength, btnExtWidth;
 	private int drawingWidth, drawingLength;
-	private JTextField textFieldHeight, textFieldSpeed, textFieldLengthNow, textFieldWidthNow;
+	
+	private static JTextField textFieldHeight, textFieldSpeed;
+	private JTextField textFieldLengthNow, textFieldWidthNow;
 
 	private JComboBox<String> comboBoxType, comboBoxWidth, comboBoxLenght, comboBoxPitch, comboBoxSide, comboBoxNo_MDR;
 
@@ -49,6 +52,7 @@ public class NewProjectGUI extends JFrame {
 		new ExportButton(btnExport);
 		new ExtendButtons(btnExtLength, btnExtWidth, drawingLength, drawingWidth, textFieldLengthNow,
 				textFieldWidthNow);
+		new AddComponentButton(btnAddComponent);
 	}
 
 	/**
@@ -292,4 +296,66 @@ public class NewProjectGUI extends JFrame {
 		System.out.println(side);
 	}
 
+	/**
+	 * Getter for the type of the component
+	 * 
+	 * @return The integer value of the selected type in the comboBoxType
+	 */
+	public static int getNewType() {
+		return type;
+	}
+
+	/**
+	 * Getter for the component's width
+	 * 
+	 * @return The integer value of the selected width in the comboBoxWidth
+	 */
+	public static int getNewWidth() {
+		return width;
+	}
+
+	/**
+	 * Getter for the component's length
+	 * 
+	 * @return The integer value of the selected length in the comboBoxLength
+	 */
+	public static int getNewLength() {
+		return length;
+	}
+
+	/**
+	 * Getter for the component's roller pitch
+	 * 
+	 * @return The string value of the selected pitch in the comboBoxPitch
+	 */
+	public static String getNewPitch() {
+		return pitch;
+	}
+
+	/**
+	 * Getter for the component's number of MDR
+	 * 
+	 * @return The integer value of the selected number of MDR in the comboBoxNo_MDR
+	 */
+	public static int getNewno_MDR() {
+		return no_MDR;
+	}
+
+	/**
+	 * Getter for the componenet's poly vee side
+	 * 
+	 * @return The integer value of the selected side of the poly vee in the
+	 *         comboBoxSide
+	 */
+	public static int getNewSide() {
+		return side;
+	}
+	
+	public static String getFieldHeight() {
+		return textFieldHeight.getText();
+	}
+	
+	public static String getFieldSpeed() {
+		return textFieldSpeed.getText();
+	}
 }

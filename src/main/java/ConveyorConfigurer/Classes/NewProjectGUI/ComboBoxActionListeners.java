@@ -1,4 +1,4 @@
-package ConveyorConfigurer.Classes.GUI.NewProjectGUI_ActionButtons;
+package ConveyorConfigurer.Classes.NewProjectGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

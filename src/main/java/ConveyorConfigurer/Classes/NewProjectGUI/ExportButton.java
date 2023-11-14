@@ -1,4 +1,4 @@
-package ConveyorConfigurer.Classes.GUI.NewProjectGUI_ActionButtons;
+package ConveyorConfigurer.Classes.NewProjectGUI;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

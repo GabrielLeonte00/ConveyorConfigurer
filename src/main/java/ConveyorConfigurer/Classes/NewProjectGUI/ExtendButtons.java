@@ -1,4 +1,4 @@
-package ConveyorConfigurer.Classes.GUI.NewProjectGUI_ActionButtons;
+package ConveyorConfigurer.Classes.NewProjectGUI;
 
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
