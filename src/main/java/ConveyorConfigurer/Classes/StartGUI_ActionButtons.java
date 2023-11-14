@@ -2,8 +2,6 @@ package ConveyorConfigurer.Classes;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -24,6 +22,9 @@ public class StartGUI_ActionButtons{
 		addAction_btnExit();
 	}
 
+	/**
+	 * Add action listener for the Exit button
+	 */
 	private void addAction_btnExit() {
 		btnExit.addMouseListener(new MouseAdapter() {
 			@Override
@@ -33,15 +34,20 @@ public class StartGUI_ActionButtons{
 		});
 	}
 
+	/**
+	 * Add action listener for the About button
+	 */
 	private void addAction_btnAbout() {
 		btnAbout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				System.out.println("Not yet implemented");
 			}
 		});
 	}
 
+	/**
+	 * Add action listener for the New button
+	 */
 	private void addAction_btnNew() {
 		btnNew.addMouseListener(new MouseAdapter() {
 			@Override

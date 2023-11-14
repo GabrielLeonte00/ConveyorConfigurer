@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import ConveyorConfigurer.Classes.GUI.NewProjectGUI_ActionButtons.ComboBoxActionListeners;
+
 public class NewProjectGUI extends JFrame {
 
 	/**
@@ -27,21 +29,29 @@ public class NewProjectGUI extends JFrame {
 	private int drawingWidth, drawingLength;
 	private JComboBox<String> comboBoxType, comboBoxWidth, comboBoxLenght, comboBoxPitch, comboBoxSide, comboBoxNo_MDR;
 
+	private static int type, width, length;
+	private static String pitch;
+	private static int side, no_MDR;
+
 	/**
 	 * Constructor for the new project GUI
 	 */
 	public NewProjectGUI() {
 		initialize();
+		initializeValues();
+		new ComboBoxActionListeners(comboBoxType, comboBoxWidth, comboBoxLenght, comboBoxPitch, comboBoxSide,
+				comboBoxNo_MDR);
 	}
 
 	/**
 	 * Getter for the main GUI frame
+	 * 
 	 * @return
 	 */
 	public JFrame getFrame() {
 		return frame;
 	}
-	
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -77,34 +87,36 @@ public class NewProjectGUI extends JFrame {
 						"Merge conveyor", "Curve roller conveyor", "Skew roller conveyor", "Diverter" }));
 		comboBoxType.setBounds(10, 128, 290, 40);
 		panel.add(comboBoxType);
-		
+
 		comboBoxWidth = new JComboBox<String>();
-		comboBoxWidth.setModel(new DefaultComboBoxModel<String>(new String[] { "417", "517", "617", "717", "817", "917" }));
+		comboBoxWidth
+				.setModel(new DefaultComboBoxModel<String>(new String[] { "417", "517", "617", "717", "817", "917" }));
 		comboBoxWidth.setBounds(165, 430, 135, 22);
 		panel.add(comboBoxWidth);
-		
+
 		comboBoxLenght = new JComboBox<String>();
-		comboBoxLenght.setModel(new DefaultComboBoxModel<String>(new String[] { "360", "390", "420", "450", "480", "510", "540",
-				"570", "600", "630", "660", "690", "720", "750", "780", "810", "840", "870", "900", "930", "960", "990",
-				"1020", "1050", "1080", "1110", "1140", "1170", "1200", "1230", "1260", "1290", "1320", "1350", "1380",
-				"1410", "1440", "1470", "1500", "1530", "1560", "1590", "1620", "1650", "1680", "1710", "1740", "1770",
-				"1800", "1830", "1860", "1890", "1920", "1950", "1980", "2010", "2040", "2070", "2100", "2130", "2160",
-				"2190", "2220", "2250", "2280", "2310", "2340", "2370", "2400", "2430", "2460", "2490", "2520", "2550",
-				"2580", "2610", "2640", "2670", "2700", "2730", "2760", "2790", "2820", "2850", "2880" }));
+		comboBoxLenght.setModel(new DefaultComboBoxModel<String>(new String[] { "360", "390", "420", "450", "480",
+				"510", "540", "570", "600", "630", "660", "690", "720", "750", "780", "810", "840", "870", "900", "930",
+				"960", "990", "1020", "1050", "1080", "1110", "1140", "1170", "1200", "1230", "1260", "1290", "1320",
+				"1350", "1380", "1410", "1440", "1470", "1500", "1530", "1560", "1590", "1620", "1650", "1680", "1710",
+				"1740", "1770", "1800", "1830", "1860", "1890", "1920", "1950", "1980", "2010", "2040", "2070", "2100",
+				"2130", "2160", "2190", "2220", "2250", "2280", "2310", "2340", "2370", "2400", "2430", "2460", "2490",
+				"2520", "2550", "2580", "2610", "2640", "2670", "2700", "2730", "2760", "2790", "2820", "2850",
+				"2880" }));
 		comboBoxLenght.setBounds(165, 463, 135, 22);
 		panel.add(comboBoxLenght);
-		
+
 		comboBoxPitch = new JComboBox<String>();
 		comboBoxPitch.setModel(new DefaultComboBoxModel<String>(new String[] { "60", "90", "120" }));
 		comboBoxPitch.setBounds(165, 496, 135, 22);
 		panel.add(comboBoxPitch);
-		
+
 		comboBoxSide = new JComboBox<String>();
 		comboBoxSide.setModel(new DefaultComboBoxModel<String>(new String[] { "Left", "Right" }));
 		comboBoxSide.setSelectedIndex(1);
 		comboBoxSide.setBounds(165, 529, 135, 22);
 		panel.add(comboBoxSide);
-		
+
 		comboBoxNo_MDR = new JComboBox<String>();
 		comboBoxNo_MDR.setModel(new DefaultComboBoxModel<String>(new String[] { "1", "2", "3", "4" }));
 		comboBoxNo_MDR.setBounds(165, 562, 135, 22);
@@ -145,7 +157,7 @@ public class NewProjectGUI extends JFrame {
 		JButton btnAddComponent = new JButton("Add component");
 		btnAddComponent.setBounds(10, 657, 290, 40);
 		panel.add(btnAddComponent);
-		
+
 		JButton btnExtLength = new JButton("Extend Length");
 		btnExtLength.setBounds(10, 51, 135, 40);
 		panel.add(btnExtLength);
@@ -185,6 +197,72 @@ public class NewProjectGUI extends JFrame {
 		textFieldLengthNow.setText(String.valueOf(drawingLength));
 		textFieldWidthNow.setText(String.valueOf(drawingWidth));
 
+	}
+
+	/**
+	 * Initialize the values for the components 
+	 */
+	private void initializeValues() {
+		type = comboBoxType.getSelectedIndex();
+		width = Integer.valueOf((String) comboBoxWidth.getSelectedItem());
+		length = Integer.valueOf((String) comboBoxLenght.getSelectedItem());
+		pitch = (String) comboBoxPitch.getSelectedItem();
+		side = comboBoxSide.getSelectedIndex();
+		no_MDR = Integer.valueOf((String) comboBoxNo_MDR.getSelectedItem());	
+	}
+
+	/**
+	 * Setter for the constant type
+	 * @param newValue New value for type
+	 */
+	public static void setType(int newValue) {
+		type = newValue;
+		System.out.println(type);
+	}
+
+	/**
+	 * Setter for the constant width
+	 * @param newValue New value for width
+	 */
+	public static void setWidth(int newValue) {
+		width = newValue;
+		System.out.println(width);
+	}
+
+	/**
+	 * Setter for the constant length
+	 * @param newValue New value for length
+	 */
+	public static void setLength(int newValue) {
+		length = newValue;
+		System.out.println(length);
+	}
+
+	/**
+	 * Setter for the constant pitch
+	 * @param newString New value for pitch
+	 */
+	public static void setPitch(String newString) {
+		pitch = newString;
+		System.out.println(pitch);
+	}
+
+	/**
+	 * Setter for the constant no_MDR
+	 * @param newValue New value for no_MDR
+	 */
+	public static void setNo_MDR(int newValue) {
+		no_MDR = newValue;
+		System.out.println(no_MDR);
+	}
+
+	/**
+	 * Setter for the constant side
+	 * @param newValue New value for side
+	 */
+	public static void setSide(int newValue) {
+		side = newValue;
+		System.out.println(side);
 	}
 
 }
