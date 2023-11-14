@@ -15,15 +15,25 @@ public class ExportButton {
 
 	private JButton btnExport;
 	
+	/**
+	 * Constructor for ExportButton
+	 * @param btnExport
+	 */
 	public ExportButton(JButton btnExport) {
 		this.btnExport = btnExport;
 		initialize();
 	}
 
+	/**
+	 * Add action listener to the export button
+	 */
 	private void initialize() {
 		btnExport.addActionListener(e -> exportPanelAsImage());
 	}
 
+	/**
+	 * Export function for the schema draw on the drawing panel
+	 */
 	private void exportPanelAsImage() {
         try {
             BufferedImage image = new BufferedImage(NewProjectGUI.getDrawingPanel().getWidth(), NewProjectGUI.getDrawingPanel().getHeight(), BufferedImage.TYPE_INT_RGB);

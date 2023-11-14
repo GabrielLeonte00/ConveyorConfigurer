@@ -3,8 +3,6 @@ package ConveyorConfigurer.Classes;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-
 import ConveyorConfigurer.Classes.GUI.NewProjectGUI;
 import ConveyorConfigurer.Classes.GUI.StartGUI;
 

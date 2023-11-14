@@ -9,9 +9,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.text.AbstractDocument;
 
+import ConveyorConfigurer.Classes.NumericDocumentFilter;
+import ConveyorConfigurer.Classes.NumericDocumentFilter_maxNumber;
 import ConveyorConfigurer.Classes.GUI.NewProjectGUI_ActionButtons.ComboBoxActionListeners;
 import ConveyorConfigurer.Classes.GUI.NewProjectGUI_ActionButtons.ExportButton;
+import ConveyorConfigurer.Classes.GUI.NewProjectGUI_ActionButtons.ExtendButtons;
 
 public class NewProjectGUI extends JFrame {
 
@@ -31,7 +35,7 @@ public class NewProjectGUI extends JFrame {
 	private JButton btnExport, btnAddComponent, btnExtLength, btnExtWidth;
 	private int drawingWidth, drawingLength;
 	private JTextField textFieldHeight, textFieldSpeed, textFieldLengthNow, textFieldWidthNow;
-	
+
 	private JComboBox<String> comboBoxType, comboBoxWidth, comboBoxLenght, comboBoxPitch, comboBoxSide, comboBoxNo_MDR;
 
 	/**
@@ -43,18 +47,22 @@ public class NewProjectGUI extends JFrame {
 		new ComboBoxActionListeners(comboBoxType, comboBoxWidth, comboBoxLenght, comboBoxPitch, comboBoxSide,
 				comboBoxNo_MDR);
 		new ExportButton(btnExport);
+		new ExtendButtons(btnExtLength, btnExtWidth, drawingLength, drawingWidth, textFieldLengthNow,
+				textFieldWidthNow);
 	}
 
 	/**
 	 * Getter for the main GUI frame
+	 * 
 	 * @return
 	 */
 	public static JFrame getFrame() {
 		return frame;
 	}
-	
+
 	/**
 	 * Getter for the panel in which we create the schema
+	 * 
 	 * @return
 	 */
 	public static JPanel getDrawingPanel() {
@@ -82,12 +90,16 @@ public class NewProjectGUI extends JFrame {
 		textFieldHeight.setText("700");
 		textFieldHeight.setColumns(10);
 		textFieldHeight.setBounds(165, 626, 135, 20);
+		AbstractDocument documentHeight = (AbstractDocument) textFieldHeight.getDocument();
+		documentHeight.setDocumentFilter(new NumericDocumentFilter(7));
 		panel.add(textFieldHeight);
 
 		textFieldSpeed = new JTextField();
 		textFieldSpeed.setText("30");
 		textFieldSpeed.setColumns(10);
 		textFieldSpeed.setBounds(165, 595, 135, 20);
+		AbstractDocument documentSpeed = (AbstractDocument) textFieldSpeed.getDocument();
+		documentSpeed.setDocumentFilter(new NumericDocumentFilter_maxNumber());
 		panel.add(textFieldSpeed);
 
 		comboBoxType = new JComboBox<String>();
