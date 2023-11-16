@@ -26,20 +26,29 @@ public class NewProjectGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private static JFrame frame;
-	private static JPanel drawingPanel;
+	private static JPanel drawingPanel, settingsPanel;
 	private JPanel previewPanel;
 
 	private static int type, width, length;
 	private static String pitch;
 	private static int side, no_MDR;
+	private static int angle;
 
 	private JButton btnExport, btnAddComponent, btnExtLength, btnExtWidth;
 	private int drawingWidth, drawingLength;
-	
+
+	private JLabel lblSpeed, lblHeight, lblWidth;
 	private static JTextField textFieldHeight, textFieldSpeed;
 	private JTextField textFieldLengthNow, textFieldWidthNow;
 
-	private JComboBox<String> comboBoxType, comboBoxWidth, comboBoxLenght, comboBoxPitch, comboBoxSide, comboBoxNo_MDR;
+	private JComboBox<String> comboBoxType, comboBoxWidth;
+
+	private static JLabel lblLength, lblAngle, lblRollerPitch, lblPolyVeeSide, lblNoOfMdr;
+	private static JComboBox<String> comboBoxLenght, comboBoxPitch, comboBoxSide, comboBoxNo_MDR, comboBoxAngle;
+
+	
+
+	
 
 	/**
 	 * Constructor for the new project GUI
@@ -48,7 +57,7 @@ public class NewProjectGUI extends JFrame {
 		initialize();
 		initializeValues();
 		new ComboBoxActionListeners(comboBoxType, comboBoxWidth, comboBoxLenght, comboBoxPitch, comboBoxSide,
-				comboBoxNo_MDR);
+				comboBoxNo_MDR, comboBoxAngle);
 		new ExportButton(btnExport);
 		new ExtendButtons(btnExtLength, btnExtWidth, drawingLength, drawingWidth, textFieldLengthNow,
 				textFieldWidthNow);
@@ -85,10 +94,10 @@ public class NewProjectGUI extends JFrame {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 310, 707);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
+		settingsPanel = new JPanel();
+		settingsPanel.setBounds(10, 11, 310, 707);
+		frame.getContentPane().add(settingsPanel);
+		settingsPanel.setLayout(null);
 
 		textFieldHeight = new JTextField();
 		textFieldHeight.setText("700");
@@ -96,29 +105,41 @@ public class NewProjectGUI extends JFrame {
 		textFieldHeight.setBounds(165, 626, 135, 20);
 		AbstractDocument documentHeight = (AbstractDocument) textFieldHeight.getDocument();
 		documentHeight.setDocumentFilter(new NumericDocumentFilter(7));
-		panel.add(textFieldHeight);
+		settingsPanel.add(textFieldHeight);
 
+		lblSpeed = new JLabel("Speed");
+		lblSpeed.setBounds(10, 594, 135, 22);
+		settingsPanel.add(lblSpeed);
 		textFieldSpeed = new JTextField();
 		textFieldSpeed.setText("30");
 		textFieldSpeed.setColumns(10);
 		textFieldSpeed.setBounds(165, 595, 135, 20);
 		AbstractDocument documentSpeed = (AbstractDocument) textFieldSpeed.getDocument();
 		documentSpeed.setDocumentFilter(new NumericDocumentFilter_maxNumber());
-		panel.add(textFieldSpeed);
+		settingsPanel.add(textFieldSpeed);
 
+		lblHeight = new JLabel("Height");
+		lblHeight.setBounds(10, 626, 135, 22);
+		settingsPanel.add(lblHeight);
 		comboBoxType = new JComboBox<String>();
 		comboBoxType.setModel(new DefaultComboBoxModel<String>(
 				new String[] { "Motorized roller conveyor", "Gravity roller conveyor", "90 degree transfer module",
 						"Merge conveyor", "Curve roller conveyor", "Skew roller conveyor", "Diverter" }));
 		comboBoxType.setBounds(10, 128, 290, 40);
-		panel.add(comboBoxType);
+		settingsPanel.add(comboBoxType);
 
+		lblWidth = new JLabel("Width");
+		lblWidth.setBounds(10, 430, 135, 22);
+		settingsPanel.add(lblWidth);
 		comboBoxWidth = new JComboBox<String>();
 		comboBoxWidth
 				.setModel(new DefaultComboBoxModel<String>(new String[] { "417", "517", "617", "717", "817", "917" }));
 		comboBoxWidth.setBounds(165, 430, 135, 22);
-		panel.add(comboBoxWidth);
+		settingsPanel.add(comboBoxWidth);
 
+		lblLength = new JLabel("Length");
+		lblLength.setBounds(10, 463, 135, 22);
+		settingsPanel.add(lblLength);
 		comboBoxLenght = new JComboBox<String>();
 		comboBoxLenght.setModel(new DefaultComboBoxModel<String>(new String[] { "360", "390", "420", "450", "480",
 				"510", "540", "570", "600", "630", "660", "690", "720", "750", "780", "810", "840", "870", "900", "930",
@@ -129,85 +150,77 @@ public class NewProjectGUI extends JFrame {
 				"2520", "2550", "2580", "2610", "2640", "2670", "2700", "2730", "2760", "2790", "2820", "2850",
 				"2880" }));
 		comboBoxLenght.setBounds(165, 463, 135, 22);
-		panel.add(comboBoxLenght);
+		settingsPanel.add(comboBoxLenght);
 
+		lblAngle = new JLabel("Angle");
+		lblAngle.setBounds(10, 463, 135, 22);
+		lblAngle.setVisible(false);
+		settingsPanel.add(lblAngle);
+		comboBoxAngle = new JComboBox<String>();
+		comboBoxAngle.setModel(new DefaultComboBoxModel<String>(new String[] { "30", "45", "60", "90" }));
+		comboBoxAngle.setSelectedIndex(3);
+		comboBoxAngle.setBounds(165, 463, 135, 22);
+		comboBoxAngle.setVisible(false);
+		settingsPanel.add(comboBoxAngle);
+
+		lblRollerPitch = new JLabel("Roller pitch");
+		lblRollerPitch.setBounds(10, 496, 135, 22);
+		settingsPanel.add(lblRollerPitch);
 		comboBoxPitch = new JComboBox<String>();
 		comboBoxPitch.setModel(new DefaultComboBoxModel<String>(new String[] { "60", "90", "120" }));
 		comboBoxPitch.setBounds(165, 496, 135, 22);
-		panel.add(comboBoxPitch);
+		settingsPanel.add(comboBoxPitch);
 
+		lblPolyVeeSide = new JLabel("Poly vee side");
+		lblPolyVeeSide.setBounds(10, 529, 135, 22);
+		settingsPanel.add(lblPolyVeeSide);
 		comboBoxSide = new JComboBox<String>();
 		comboBoxSide.setModel(new DefaultComboBoxModel<String>(new String[] { "Left", "Right" }));
 		comboBoxSide.setSelectedIndex(1);
 		comboBoxSide.setBounds(165, 529, 135, 22);
-		panel.add(comboBoxSide);
+		settingsPanel.add(comboBoxSide);
 
+		lblNoOfMdr = new JLabel("No. of MDR");
+		lblNoOfMdr.setBounds(10, 562, 135, 22);
+		settingsPanel.add(lblNoOfMdr);
 		comboBoxNo_MDR = new JComboBox<String>();
 		comboBoxNo_MDR.setModel(new DefaultComboBoxModel<String>(new String[] { "1", "2", "3", "4" }));
 		comboBoxNo_MDR.setBounds(165, 562, 135, 22);
-		panel.add(comboBoxNo_MDR);
-
-		JLabel lblWidth = new JLabel("Width");
-		lblWidth.setBounds(10, 430, 135, 22);
-		panel.add(lblWidth);
-
-		JLabel lblLength = new JLabel("Length");
-		lblLength.setBounds(10, 463, 135, 22);
-		panel.add(lblLength);
-
-		JLabel lblRollerPitch = new JLabel("Roller pitch");
-		lblRollerPitch.setBounds(10, 496, 135, 22);
-		panel.add(lblRollerPitch);
-
-		JLabel lblPolyVeeSide = new JLabel("Poly vee side");
-		lblPolyVeeSide.setBounds(10, 529, 135, 22);
-		panel.add(lblPolyVeeSide);
-
-		JLabel lblNoOfMdr = new JLabel("No. of MDR");
-		lblNoOfMdr.setBounds(10, 562, 135, 22);
-		panel.add(lblNoOfMdr);
-
-		JLabel lblSpeed = new JLabel("Speed");
-		lblSpeed.setBounds(10, 594, 135, 22);
-		panel.add(lblSpeed);
-
-		JLabel lblHeight = new JLabel("Height");
-		lblHeight.setBounds(10, 626, 135, 22);
-		panel.add(lblHeight);
+		settingsPanel.add(comboBoxNo_MDR);
 
 		btnExport = new JButton("Export");
 		btnExport.setBounds(10, 0, 290, 40);
-		panel.add(btnExport);
+		settingsPanel.add(btnExport);
 
 		btnAddComponent = new JButton("Add component");
 		btnAddComponent.setBounds(10, 657, 290, 40);
-		panel.add(btnAddComponent);
+		settingsPanel.add(btnAddComponent);
 
 		btnExtLength = new JButton("Extend Length");
 		btnExtLength.setBounds(10, 51, 135, 40);
-		panel.add(btnExtLength);
+		settingsPanel.add(btnExtLength);
 
 		btnExtWidth = new JButton("Extend Width");
 		btnExtWidth.setBounds(165, 51, 135, 40);
-		panel.add(btnExtWidth);
+		settingsPanel.add(btnExtWidth);
 
 		previewPanel = new JPanel();
 		previewPanel.setBackground(Color.BLACK);
 		previewPanel.setBounds(10, 179, 290, 240);
-		panel.add(previewPanel);
+		settingsPanel.add(previewPanel);
 		previewPanel.setLayout(null);
 
 		textFieldLengthNow = new JTextField();
 		textFieldLengthNow.setEditable(false);
 		textFieldLengthNow.setBounds(10, 97, 135, 20);
-		panel.add(textFieldLengthNow);
+		settingsPanel.add(textFieldLengthNow);
 		textFieldLengthNow.setColumns(10);
 
 		textFieldWidthNow = new JTextField();
 		textFieldWidthNow.setEditable(false);
 		textFieldWidthNow.setColumns(10);
 		textFieldWidthNow.setBounds(165, 97, 135, 20);
-		panel.add(textFieldWidthNow);
+		settingsPanel.add(textFieldWidthNow);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(330, 11, 1200, 700);
@@ -243,7 +256,6 @@ public class NewProjectGUI extends JFrame {
 	 */
 	public static void setType(int newValue) {
 		type = newValue;
-		System.out.println(type);
 	}
 
 	/**
@@ -253,7 +265,6 @@ public class NewProjectGUI extends JFrame {
 	 */
 	public static void setWidth(int newValue) {
 		width = newValue;
-		System.out.println(width);
 	}
 
 	/**
@@ -263,7 +274,6 @@ public class NewProjectGUI extends JFrame {
 	 */
 	public static void setLength(int newValue) {
 		length = newValue;
-		System.out.println(length);
 	}
 
 	/**
@@ -273,7 +283,6 @@ public class NewProjectGUI extends JFrame {
 	 */
 	public static void setPitch(String newString) {
 		pitch = newString;
-		System.out.println(pitch);
 	}
 
 	/**
@@ -283,7 +292,6 @@ public class NewProjectGUI extends JFrame {
 	 */
 	public static void setNo_MDR(int newValue) {
 		no_MDR = newValue;
-		System.out.println(no_MDR);
 	}
 
 	/**
@@ -293,7 +301,15 @@ public class NewProjectGUI extends JFrame {
 	 */
 	public static void setSide(int newValue) {
 		side = newValue;
-		System.out.println(side);
+	}
+
+	/**
+	 * Setter for the constant angle
+	 * 
+	 * @param newValue New value for angle
+	 */
+	public static void setAngle(int newValue) {
+		angle = newValue;
 	}
 
 	/**
@@ -350,12 +366,54 @@ public class NewProjectGUI extends JFrame {
 	public static int getNewSide() {
 		return side;
 	}
-	
+
+	/**
+	 * Getter for the selected angle
+	 * 
+	 * @return The integer value of the selected angle in the comboBoxAngle
+	 */
+	public static int getAngle() {
+		return angle;
+	}
+
 	public static String getFieldHeight() {
 		return textFieldHeight.getText();
 	}
-	
+
 	public static String getFieldSpeed() {
 		return textFieldSpeed.getText();
+	}
+
+	public static void setVisibleSettings_MotorizeRollerConveyor() {
+		comboBoxLenght.setVisible(true);
+		lblLength.setVisible(true);
+		comboBoxPitch.setVisible(true);
+		lblRollerPitch.setVisible(true);
+		comboBoxSide.setVisible(true);
+		lblPolyVeeSide.setVisible(true);
+		comboBoxNo_MDR.setVisible(true);
+		lblNoOfMdr.setVisible(true);
+
+		comboBoxAngle.setVisible(false);
+		lblAngle.setVisible(false);
+
+		settingsPanel.revalidate();
+	}
+
+	public static void setVisibleSettings_DegreeTransferModule() {
+		comboBoxLenght.setVisible(false);
+		lblLength.setVisible(false);
+		comboBoxPitch.setVisible(false);
+		lblRollerPitch.setVisible(false);
+		comboBoxSide.setVisible(false);
+		lblPolyVeeSide.setVisible(false);
+		comboBoxNo_MDR.setVisible(false);
+		lblNoOfMdr.setVisible(false);
+
+		comboBoxAngle.setVisible(true);
+		lblAngle.setVisible(true);
+
+		settingsPanel.revalidate();
+		settingsPanel.repaint();
 	}
 }

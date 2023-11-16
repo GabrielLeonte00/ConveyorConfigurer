@@ -14,6 +14,7 @@ public class Motorized_roller_conveyor extends JLabel {
 	private String H, V, P;
 	private int No_MDR, side;
 	private int preScaleWidth, preScaleHeigth;
+	private String title;
 
 	/**
 	 * Constructor for the Motorized roller conveyor component
@@ -35,6 +36,7 @@ public class Motorized_roller_conveyor extends JLabel {
 		this.side = side;
 		this.preScaleHeigth = preScaleHeigth;
 		this.preScaleWidth = preScaleWidth;
+		title = "A0020";
 	}
 
 	/**
@@ -45,7 +47,7 @@ public class Motorized_roller_conveyor extends JLabel {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 
-		// g2d.scale(0.5, 0.5); //scale by 0.5
+		g2d.scale(0.5, 0.5); //scale by 0.5
 
 		Stroke originalStroke = g2d.getStroke(); // Set the stroke to a thicker line
 		g2d.setStroke(new BasicStroke(1.0f)); // Set the border thickness
@@ -99,7 +101,6 @@ public class Motorized_roller_conveyor extends JLabel {
 		g.drawString("P = " + P, 90, yCenter + 100);
 		font = new Font("Arial", Font.PLAIN, 30);
 		// Add title of component
-		String title = "A0020";
 		g.setFont(font);
 		g.setColor(Color.MAGENTA);
 		g.drawString(title, 90, yCenter - 50);
