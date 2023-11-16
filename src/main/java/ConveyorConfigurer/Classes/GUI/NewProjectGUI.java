@@ -247,6 +247,7 @@ public class NewProjectGUI extends JFrame {
 		pitch = (String) comboBoxPitch.getSelectedItem();
 		side = comboBoxSide.getSelectedIndex();
 		no_MDR = Integer.valueOf((String) comboBoxNo_MDR.getSelectedItem());
+		angle = Integer.valueOf((String) comboBoxAngle.getSelectedItem());
 	}
 
 	/**
