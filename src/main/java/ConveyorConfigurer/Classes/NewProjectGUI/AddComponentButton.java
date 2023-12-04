@@ -12,7 +12,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import ConveyorConfigurer.Classes.Components.Degree_transfer_module;
+import ConveyorConfigurer.Classes.Components.Curve_roller_conveyor;
 import ConveyorConfigurer.Classes.Components.Motorized_roller_conveyor;
 import ConveyorConfigurer.Classes.GUI.NewProjectGUI;
 
@@ -40,12 +40,13 @@ public class AddComponentButton {
 		String pitch = NewProjectGUI.getNewPitch();
 		String height = NewProjectGUI.getFieldHeight();
 		String speed = NewProjectGUI.getFieldSpeed();
+		String title = NewProjectGUI.getFieldTitle();
 
 		switch (NewProjectGUI.getNewType()) {
 		case 0:
 			// System.out.println("Motorized roller conveyor");
-			Motorized_roller_conveyor newComponent0 = new Motorized_roller_conveyor(height, speed, pitch, no_MDR, side,
-					auxLength, auxWidth);
+			Motorized_roller_conveyor newComponent0 = new Motorized_roller_conveyor(height, speed, pitch, title, no_MDR,
+					side, auxLength, auxWidth);
 			newComponent0.setSize(auxLength / 2 + 1, auxWidth / 2 + 1); // scale by 0.5
 			// newComponent.setSize(auxLength, auxWidth);
 			newComponent0.setLocation(20, 20);
@@ -78,6 +79,7 @@ public class AddComponentButton {
 			});
 
 			NewProjectGUI.getDrawingPanel().add(newComponent0);
+
 			break;
 
 		case 1:
@@ -85,9 +87,17 @@ public class AddComponentButton {
 			break;
 
 		case 2:
-			// System.out.println("90 degree transfer module");
+			System.out.println("90 degree transfer module");
+			break;
 
-			Degree_transfer_module newComponent2 = new Degree_transfer_module(height, speed, auxWidthDegree,
+		case 3:
+			System.out.println("Merge conveyor");
+			break;
+
+		case 4:
+			// System.out.println("Curve roller conveyor");
+
+			Curve_roller_conveyor newComponent2 = new Curve_roller_conveyor(height, speed, title, auxWidthDegree,
 					auxWidth - 70, angle);
 			// newComponent.setSize(auxWidth90Degree, auxWidth90Degree);
 			newComponent2.setSize(auxWidthDegree / 2 + 1, auxWidthDegree / 2 + 1);
@@ -122,14 +132,7 @@ public class AddComponentButton {
 			});
 
 			NewProjectGUI.getDrawingPanel().add(newComponent2);
-			break;
 
-		case 3:
-			System.out.println("Merge conveyor");
-			break;
-
-		case 4:
-			System.out.println("Curve roller conveyor");
 			break;
 
 		case 5:

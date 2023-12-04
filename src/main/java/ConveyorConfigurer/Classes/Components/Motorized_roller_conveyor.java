@@ -1,9 +1,13 @@
 package ConveyorConfigurer.Classes.Components;
 
 import javax.swing.*;
+
+import org.bouncycastle.util.Arrays;
+
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
+import java.awt.image.BufferedImage;
 
 public class Motorized_roller_conveyor extends JLabel {
 
@@ -13,30 +17,61 @@ public class Motorized_roller_conveyor extends JLabel {
 	private static final long serialVersionUID = 1L;
 	private String H, V, P;
 	private int No_MDR, side;
-	private int preScaleWidth, preScaleHeigth;
+	private int preScaleWidth, preScaleHeight;
 	private String title;
+	private BufferedImage component;
+	private String Component_name, Type_code;
+	private String[] excelData = new String[22];
 
 	/**
 	 * Constructor for the Motorized roller conveyor component
-	 * @param H  The height of the conveyor
-	 * @param V  The speed of the conveyor
-	 * @param P  The roller pitch of the conveyor 
-	 * @param No_MDR  The number of MDR
-	 * @param side  The side of the poly vee
+	 * 
+	 * @param H              The height of the conveyor
+	 * @param V              The speed of the conveyor
+	 * @param P              The roller pitch of the conveyor
+	 * @param title          Title of the component
+	 * @param No_MDR         The number of MDR
+	 * @param side           The side of the poly vee
 	 * @param preScaleWidth  The prescaled width of the component
 	 * @param preScaleHeigth The prescaled heigth of the component
 	 */
-	public Motorized_roller_conveyor(String H, String V, String P, int No_MDR, int side,
+	public Motorized_roller_conveyor(String H, String V, String P, String title, int No_MDR, int side,
 			int preScaleWidth, int preScaleHeigth) {
 		super();
 		this.H = H;
 		this.V = V;
 		this.P = P;
+		this.title = title;
 		this.No_MDR = No_MDR;
 		this.side = side;
-		this.preScaleHeigth = preScaleHeigth;
+		this.preScaleHeight = preScaleHeigth;
 		this.preScaleWidth = preScaleWidth;
-		title = "A0020";
+		Component_name = "Motorized roller conveyor";
+		Type_code = "G5301A";
+		Arrays.fill(excelData, "");
+		createComponent();
+		populateData();
+	}
+
+	void populateData() {
+		excelData[0] = title;
+		excelData[1] = Type_code;
+		excelData[2] = Component_name;
+		excelData[3] = "1";
+		excelData[4] = Integer.toString(preScaleWidth);
+		excelData[5] = Integer.toString(preScaleHeight - 70);
+		excelData[6] = V;
+		excelData[7] = H;
+		excelData[12] = P;
+		excelData[15] = Integer.toString(No_MDR);
+		if (side == 0)
+			excelData[16] = "L";
+		else
+			excelData[16] = "R";
+	}
+	
+	public String[] getDataForExcel() {
+		return excelData;
 	}
 
 	/**
@@ -47,31 +82,39 @@ public class Motorized_roller_conveyor extends JLabel {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 
-		g2d.scale(0.5, 0.5); //scale by 0.5
+		g2d.drawImage(component, 0, 0, this);
+
+	}
+
+	void createComponent() {
+		component = new BufferedImage(preScaleWidth, preScaleHeight, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d = component.createGraphics();
+
+		g2d.scale(0.5, 0.5); // scale by 0.5
 
 		Stroke originalStroke = g2d.getStroke(); // Set the stroke to a thicker line
 		g2d.setStroke(new BasicStroke(1.0f)); // Set the border thickness
 
 		// Draw the rectangle border
-		g.setColor(Color.WHITE);
-		g.drawRect(7, 0, preScaleWidth - 15, preScaleHeigth - 1);
+		g2d.setColor(Color.WHITE);
+		g2d.drawRect(7, 0, preScaleWidth - 15, preScaleHeight - 1);
 
 		// Draw the first horizontal line above the border
 		g2d.setStroke(originalStroke); // Restore the original stroke
 		int yAboveBorder = 35;
 		g2d.drawLine(7, yAboveBorder, preScaleWidth - 8, yAboveBorder);
-		
+
 		// Draw the horizontal line in the center
-		g.setColor(Color.RED);
-		int yCenter = preScaleHeigth / 2;
+		g2d.setColor(Color.RED);
+		int yCenter = preScaleHeight / 2;
 		g2d.drawLine(7, yCenter, preScaleWidth - 8, yCenter);
-		
+
 		// Draw arrow
 		drawArrow(g2d, 80, yCenter);
-		g.setColor(Color.WHITE);
-		
+		g2d.setColor(Color.WHITE);
+
 		// Draw the second horizontal line below the border
-		int yBelowBorder = preScaleHeigth - 35;
+		int yBelowBorder = preScaleHeight - 35;
 		g2d.drawLine(7, yBelowBorder, preScaleWidth - 8, yBelowBorder);
 
 		// Draw small "X" at the intersection points
@@ -92,26 +135,27 @@ public class Motorized_roller_conveyor extends JLabel {
 
 		// Add the text on the component
 		Font font = new Font("Arial", Font.PLAIN, 20);
-		g.setFont(font);
-		g.setColor(Color.GREEN);
-		g.drawString("H = " + H, 90, yCenter + 50);
-		g.setColor(Color.BLUE);
-		g.drawString("V = " + V, 90, yCenter + 75);
-		g.setColor(Color.CYAN);
-		g.drawString("P = " + P, 90, yCenter + 100);
+		g2d.setFont(font);
+		g2d.setColor(Color.GREEN);
+		g2d.drawString("H = " + H, 90, yCenter + 50);
+		g2d.setColor(Color.BLUE);
+		g2d.drawString("V = " + V, 90, yCenter + 75);
+		g2d.setColor(Color.CYAN);
+		g2d.drawString("P = " + P, 90, yCenter + 100);
 		font = new Font("Arial", Font.PLAIN, 30);
 		// Add title of component
-		g.setFont(font);
-		g.setColor(Color.MAGENTA);
-		g.drawString(title, 90, yCenter - 50);
+		g2d.setFont(font);
+		g2d.setColor(Color.MAGENTA);
+		g2d.drawString(title, 90, yCenter - 50);
 
 		g2d.dispose();
-
 	}
 
 	/**
-	 * Draw function for the intersection between the middle line and the left/right border
-	 * @param g2d 
+	 * Draw function for the intersection between the middle line and the left/right
+	 * border
+	 * 
+	 * @param g2d
 	 * @param x
 	 * @param y
 	 */
@@ -130,6 +174,7 @@ public class Motorized_roller_conveyor extends JLabel {
 
 	/**
 	 * Draw function for the small circles next to the poly vee bars
+	 * 
 	 * @param g2d
 	 * @param x
 	 * @param y
@@ -147,6 +192,7 @@ public class Motorized_roller_conveyor extends JLabel {
 
 	/**
 	 * Draw function for the poly vee bars
+	 * 
 	 * @param g2d
 	 * @param x
 	 * @param y1
@@ -191,6 +237,7 @@ public class Motorized_roller_conveyor extends JLabel {
 
 	/**
 	 * Draw function for the zigzag on one of the pieces of the poly vee
+	 * 
 	 * @param g2d
 	 * @param x
 	 * @param y
@@ -218,6 +265,7 @@ public class Motorized_roller_conveyor extends JLabel {
 
 	/**
 	 * Draw function for the arrow on the middle line
+	 * 
 	 * @param g2d
 	 * @param x
 	 * @param y
@@ -245,6 +293,7 @@ public class Motorized_roller_conveyor extends JLabel {
 
 	/**
 	 * Draw function for the rollers of the poly vee
+	 * 
 	 * @param g2d
 	 * @param x
 	 * @param y
@@ -286,6 +335,7 @@ public class Motorized_roller_conveyor extends JLabel {
 
 	/**
 	 * Draw function for poly vee rollers using the previous drawCircle function
+	 * 
 	 * @param g2d
 	 * @param yBelowBorder
 	 * @param yAboveBorder

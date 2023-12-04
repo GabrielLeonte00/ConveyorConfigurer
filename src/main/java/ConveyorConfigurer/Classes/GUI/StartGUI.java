@@ -37,7 +37,7 @@ public class StartGUI extends JFrame {
 
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setTitle("Coveyor Configurer");
+		frame.setTitle("Conveyor Configurer");
 		frame.setBounds(100, 100, 300, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);

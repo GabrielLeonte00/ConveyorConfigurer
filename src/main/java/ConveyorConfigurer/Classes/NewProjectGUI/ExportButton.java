@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import ConveyorConfigurer.Classes.DataForExcel;
 import ConveyorConfigurer.Classes.GUI.NewProjectGUI;
 
 public class ExportButton {
@@ -41,14 +42,17 @@ public class ExportButton {
             NewProjectGUI.getDrawingPanel().printAll(graphics2D);
             graphics2D.dispose();
 
-            File outputFile = new File("testExport.png");
+            File outputFile = new File("tempSchema.png");
             ImageIO.write(image, "png", outputFile);
+            
+            DataForExcel.test();
 
             JOptionPane.showMessageDialog(NewProjectGUI.getFrame(), "Panel image exported successfully!");
         } catch (IOException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(NewProjectGUI.getFrame(), "Error exporting panel image.");
         }
+        
     }
 	
 }

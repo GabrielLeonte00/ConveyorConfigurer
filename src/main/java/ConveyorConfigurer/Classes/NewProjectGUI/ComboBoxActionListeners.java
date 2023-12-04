@@ -2,18 +2,10 @@ package ConveyorConfigurer.Classes.NewProjectGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-
-import ConveyorConfigurer.Classes.Components.Degree_transfer_module;
-import ConveyorConfigurer.Classes.Components.Motorized_roller_conveyor;
 import ConveyorConfigurer.Classes.GUI.NewProjectGUI;
 
-public class ComboBoxActionListeners{
+public class ComboBoxActionListeners {
 
 	protected static final NewProjectGUI NeWProjectGUI = null;
 	private JComboBox<String> comboBoxType, comboBoxWidth, comboBoxLenght, comboBoxPitch, comboBoxSide, comboBoxNo_MDR,
@@ -62,7 +54,6 @@ public class ComboBoxActionListeners{
 
 				case 2:
 					System.out.println("90 degree transfer module");
-					NewProjectGUI.setVisibleSettings_DegreeTransferModule();
 					break;
 
 				case 3:
@@ -71,6 +62,7 @@ public class ComboBoxActionListeners{
 
 				case 4:
 					System.out.println("Curve roller conveyor");
+					NewProjectGUI.setVisibleSettings_CurveRollerConveyor();
 					break;
 
 				case 5:
@@ -114,7 +106,7 @@ public class ComboBoxActionListeners{
 				NewProjectGUI.setNo_MDR(Integer.valueOf((String) comboBoxNo_MDR.getSelectedItem()));
 			}
 		});
-		
+
 		comboBoxAngle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NewProjectGUI.setAngle(Integer.valueOf((String) comboBoxAngle.getSelectedItem()));

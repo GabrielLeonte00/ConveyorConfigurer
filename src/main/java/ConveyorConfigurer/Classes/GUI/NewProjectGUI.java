@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.text.AbstractDocument;
 
+import ConveyorConfigurer.Classes.DataForExcel;
 import ConveyorConfigurer.Classes.NumericDocumentFilter;
 import ConveyorConfigurer.Classes.NumericDocumentFilter_maxNumber;
 import ConveyorConfigurer.Classes.NewProjectGUI.AddComponentButton;
@@ -38,7 +39,7 @@ public class NewProjectGUI extends JFrame {
 	private int drawingWidth, drawingLength;
 
 	private JLabel lblSpeed, lblHeight, lblWidth;
-	private static JTextField textFieldHeight, textFieldSpeed;
+	private static JTextField textFieldHeight, textFieldSpeed, textFieldTitle;
 	private JTextField textFieldLengthNow, textFieldWidthNow;
 
 	private JComboBox<String> comboBoxType, comboBoxWidth;
@@ -46,22 +47,20 @@ public class NewProjectGUI extends JFrame {
 	private static JLabel lblLength, lblAngle, lblRollerPitch, lblPolyVeeSide, lblNoOfMdr;
 	private static JComboBox<String> comboBoxLenght, comboBoxPitch, comboBoxSide, comboBoxNo_MDR, comboBoxAngle;
 
-	
-
-	
-
 	/**
 	 * Constructor for the new project GUI
 	 */
 	public NewProjectGUI() {
 		initialize();
 		initializeValues();
+		
 		new ComboBoxActionListeners(comboBoxType, comboBoxWidth, comboBoxLenght, comboBoxPitch, comboBoxSide,
 				comboBoxNo_MDR, comboBoxAngle);
 		new ExportButton(btnExport);
 		new ExtendButtons(btnExtLength, btnExtWidth, drawingLength, drawingWidth, textFieldLengthNow,
 				textFieldWidthNow);
 		new AddComponentButton(btnAddComponent);
+		DataForExcel.initialize(drawingPanel);
 	}
 
 	/**
@@ -98,6 +97,15 @@ public class NewProjectGUI extends JFrame {
 		settingsPanel.setBounds(10, 11, 310, 707);
 		frame.getContentPane().add(settingsPanel);
 		settingsPanel.setLayout(null);
+
+		textFieldTitle = new JTextField();
+		textFieldTitle.setText("A0010");
+		textFieldTitle.setColumns(10);
+		textFieldTitle.setBounds(165, 399, 135, 20);
+		settingsPanel.add(textFieldTitle);
+		JLabel lblTitle = new JLabel("Title");
+		lblTitle.setBounds(10, 398, 135, 22);
+		settingsPanel.add(lblTitle);
 
 		textFieldHeight = new JTextField();
 		textFieldHeight.setText("700");
@@ -206,7 +214,7 @@ public class NewProjectGUI extends JFrame {
 
 		previewPanel = new JPanel();
 		previewPanel.setBackground(Color.BLACK);
-		previewPanel.setBounds(10, 179, 290, 240);
+		previewPanel.setBounds(10, 179, 290, 209);
 		settingsPanel.add(previewPanel);
 		previewPanel.setLayout(null);
 
@@ -377,6 +385,15 @@ public class NewProjectGUI extends JFrame {
 		return angle;
 	}
 
+	/**
+	 * Getter for the selected angle
+	 * 
+	 * @return The integer value of the selected angle in the comboBoxAngle
+	 */
+	public static String getFieldTitle() {
+		return textFieldTitle.getText();
+	}
+
 	public static String getFieldHeight() {
 		return textFieldHeight.getText();
 	}
@@ -401,7 +418,7 @@ public class NewProjectGUI extends JFrame {
 		settingsPanel.revalidate();
 	}
 
-	public static void setVisibleSettings_DegreeTransferModule() {
+	public static void setVisibleSettings_CurveRollerConveyor() {
 		comboBoxLenght.setVisible(false);
 		lblLength.setVisible(false);
 		comboBoxPitch.setVisible(false);
